@@ -1,0 +1,12 @@
+<h1>Register</h1>
+<form action="/register" method="POST" enctype="multipart/form-data">
+  <input name="username" placeholder="Username" required><br>
+  <input name="password" type="password" placeholder="Password" required><br>
+  <input name="firstname" placeholder="First Name" required><br>
+  <input name="lastname" placeholder="Last Name" required><br>
+  <input name="email" type="email" placeholder="Email" required><br>
+  <input name="birthdate" type="date" required><br>
+  <input type="file" name="profile_pic" accept="image/*" required><br>
+  <button type="submit">Register</button>
+</form>
+<% if (error) { %><p style="color:red;"><%= error %></p><% } %>

@@ -1,0 +1,29 @@
+{
+  "name": "ex1b",
+  "version": "1.0.0",
+  "description": "Personal profile website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahmadsh64/ex1b.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ahmadsh64/ex1b/issues"
+  },
+  "homepage": "https://github.com/Ahmadsh64/ex1b#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "multer": "^2.0.1",
+    "sqlite3": "^5.1.7"
+  }
+}
