@@ -1,8 +1,23 @@
-<h1>Login</h1>
-<form action="/login" method="POST">
-  <input name="username" placeholder="Username" required><br>
-  <input name="password" type="password" placeholder="Password" required><br>
-  <button type="submit">Login</button>
-</form>
-<p><a href="/register">Register</a></p>
-<% if (error) { %><p style="color:red;"><%= error %></p><% } %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <% if (error) { %><p style="color:red"><%= error %></p><% } %>
+  <form action="/login" method="post">
+    <fieldset>
+      <legend>Login</legend>
+
+      <label>Username:</label><input type="text" name="username" required><br>
+      <label>Password:</label><input type="password" name="password" required><br>
+
+      <button type="submit">Login</button>
+    </fieldset>
+  </form>
+
+  <a href="/register">Don't have an account? Register here</a>
+</body>
+</html>

@@ -1,5 +1,18 @@
-<h1>Welcome, <%= user.firstname %> <%= user.lastname %></h1>
-<p>Email: <%= user.email %></p>
-<p>Birthdate: <%= user.birthdate %></p>
-<img src="/uploads/<%= user.profile_pic %>" width="150"><br>
-<a href="/logout">Logout</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+</head>
+<body>
+  <h2>Welcome, <%= user.firstname %> <%= user.lastname %></h2>
+  <p>Email: <%= user.email %></p>
+  <p>Birth Date: <%= user.birthdate %></p>
+  <% if (user.profile_pic) { %>
+    <img src="/uploads/<%= user.profile_pic %>" width="150" />
+  <% } else { %>
+    <p>No profile picture uploaded.</p>
+  <% } %>
+  <br><a href="/logout">Logout</a>
+</body>
+</html>

@@ -2,53 +2,40 @@ const express = require('express');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const sqlite3 = require('sqlite3').verbose();
-const multer = require('multer');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 const fs = require('fs');
 
 const app = express();
 const port = 3000;
 
-// הגדרות middleware
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-
+app.use(fileUpload());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// הגדרת session
+
 app.use(session({
   secret: 'my_secret_key',
   resave: false,
   saveUninitialized: true
 }));
 
-// יצירת תיקייה להעלאות אם לא קיימת
+// יצירת תיקיית העלאות
 const uploadDir = path.join(__dirname, 'public', 'uploads');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// הגדרת multer
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
-const upload = multer({ storage: storage });
-
-// פתיחת / יצירת בסיס הנתונים
+// יצירת בסיס הנתונים
 const db = new sqlite3.Database('./db/users.db', (err) => {
-  if (err) {
-    console.error(err.message);
-  }
+  if (err) console.error(err.message);
   console.log('Connected to the users database.');
 });
 
-// יצירת טבלה אם לא קיימת
+
 db.run(`CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE,
@@ -60,7 +47,7 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
   profile_pic TEXT
 )`);
 
-// דף הבית (רק אם מחובר)
+// דף הבית
 app.get('/', (req, res) => {
   if (!req.session.user) return res.redirect('/login');
   res.render('home', { user: req.session.user });
@@ -83,12 +70,16 @@ app.get('/logout', (req, res) => {
 });
 
 // תהליך הרשמה
-app.post('/register', upload.single('profile_pic'), async (req, res) => {
+app.post('/register', async (req, res) => {
   const { username, password, firstname, lastname, email, birthdate } = req.body;
   let profile_pic = null;
 
-  if (req.file) {
-    profile_pic = req.file.filename;
+  if (req.files && req.files.profile_pic) {
+    let file = req.files.profile_pic;
+    const filename = Date.now() + path.extname(file.name);
+    const filepath = path.join(uploadDir, filename);
+    await file.mv(filepath);
+    profile_pic = filename;
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
