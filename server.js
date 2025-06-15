@@ -1,3 +1,8 @@
+/**
+ * מגישים: אחמד שלאעטה 212811244, באסל חמזה 214048019  , נרמין עראידה 212845762
+ * GitHub: ( https://github.com/Ahmadsh64/ex1b.git )
+ */
+
 const express = require('express');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
