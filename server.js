@@ -29,7 +29,9 @@ app.use(session({
 }));
 
 // יצירת תיקיית העלאות
-const uploadDir = path.join(__dirname, 'public', 'uploads');
+const uploadDir = path.join(__dirname, 'uploads'); 
+app.use('/uploads', express.static(uploadDir));
+
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -123,3 +125,4 @@ app.post('/login', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
