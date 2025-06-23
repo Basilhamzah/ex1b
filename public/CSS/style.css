@@ -1,0 +1,122 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  min-height: 100vh;
+  padding-top: 50px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+form, .profile-box {
+  background-color: white;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 320px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  color: #555;
+  font-weight: bold;
+}
+
+input, button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+a {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #4caf50;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  display: block;
+  margin: 15px auto;
+  border-radius: 10px;
+}
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link-below {
+  margin-top: 15px;
+  text-align: center;
+  color: #4caf50;
+}
+.profile-card {
+  background-color: white;
+  width: 320px;
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin: 50px auto;
+  text-align: center;
+}
+
+.profile-card h2 {
+  margin: 15px 0 5px;
+  color: #333;
+}
+
+.profile-card p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.profile-pic {
+  width: 150px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.logout-btn {
+  display: inline-block;
+  margin-top: 20px;
+  color: white;
+  background-color: #4caf50;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.logout-btn:hover {
+  background-color: #45a049;
+}
+
+

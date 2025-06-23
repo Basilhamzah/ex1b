@@ -8,16 +8,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Profile</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <h2>Welcome, <%= user.firstname %> <%= user.lastname %></h2>
-  <p>Email: <%= user.email %></p>
-  <p>Birth Date: <%= user.birthdate %></p>
-  <% if (user.profile_pic) { %>
-    <img src="/uploads/<%= user.profile_pic %>" width="150" />
-  <% } else { %>
-    <p>No profile picture uploaded.</p>
-  <% } %>
-  <br><a href="/logout">Logout</a>
+  <div class="profile-card">
+    <% if (user.profile_pic) { %>
+      <img class="profile-pic" src="/uploads/<%= user.profile_pic %>" alt="Profile Picture" />
+    <% } else { %>
+      <p>No profile picture uploaded.</p>
+    <% } %>
+
+    <h2><%= user.firstname %> <%= user.lastname %></h2>
+    <p><strong>Email:</strong> <%= user.email %></p>
+    <p><strong>Birth Date:</strong> <%= user.birthdate %></p>
+
+    <a class="logout-btn" href="/logout">Logout</a>
+  </div>
 </body>
 </html>
