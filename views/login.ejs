@@ -3,21 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <h2>Login</h2>
-  <% if (error) { %><p style="color:red"><%= error %></p><% } %>
   <form action="/login" method="post">
-    <fieldset>
-      <legend>Login</legend>
+    <h2>Login</h2>
 
-      <label>Username:</label><input type="text" name="username" required><br>
-      <label>Password:</label><input type="password" name="password" required><br>
+    <% if (error) { %>
+      <p style="color:red"><%= error %></p>
+    <% } %>
 
-      <button type="submit">Login</button>
-    </fieldset>
+    <label>Username:</label>
+    <input type="text" name="username" required>
+
+    <label>Password:</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Login</button>
+
+    <a href="/register">Don't have an account? Register here</a>
   </form>
-
-  <a href="/register">Don't have an account? Register here</a>
 </body>
 </html>
