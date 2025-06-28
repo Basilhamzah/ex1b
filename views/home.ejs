@@ -1,27 +1,43 @@
-/**
+<!----
  * מגישים: אחמד שלאעטה 212811244, באסל חמזה 214048019  , נרמין עראידה 212845762
  * GitHub: ( https://github.com/Ahmadsh64/ex1b.git )
- */
-
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Profile</title>
   <link rel="stylesheet" href="/css/style.css">
+  <!-- 
+    Profile Page Template
+    This page displays the logged-in user's profile information, including:
+    - Profile picture (if uploaded)
+    - Full name
+    - Email address
+    - Birth date
+    - Logout button
+  -->
 </head>
 <body>
   <div class="profile-card">
     <% if (user.profile_pic) { %>
+      <!-- Display user's profile picture -->
       <img class="profile-pic" src="/uploads/<%= user.profile_pic %>" alt="Profile Picture" />
     <% } else { %>
+      <!-- Message shown if no profile picture is uploaded -->
       <p>No profile picture uploaded.</p>
     <% } %>
 
+    <!-- Display user's full name -->
     <h2><%= user.firstname %> <%= user.lastname %></h2>
+
+    <!-- Display user's email -->
     <p><strong>Email:</strong> <%= user.email %></p>
+
+    <!-- Display user's birth date -->
     <p><strong>Birth Date:</strong> <%= user.birthdate %></p>
 
+    <!-- Logout button -->
     <a class="logout-btn" href="/logout">Logout</a>
   </div>
 </body>
