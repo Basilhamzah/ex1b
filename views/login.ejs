@@ -1,32 +1,43 @@
-/**
+<!--
  * מגישים: אחמד שלאעטה 212811244, באסל חמזה 214048019  , נרמין עראידה 212845762
  * GitHub: ( https://github.com/Ahmadsh64/ex1b.git )
- */
-
-
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
   <link rel="stylesheet" href="/css/style.css">
+  <!-- 
+    Login Page Template
+    This page allows users to log into their account by providing:
+    - Username
+    - Password
+    If authentication fails, an error message is displayed.
+  -->
 </head>
 <body>
+  <!-- Login form submission to /login endpoint (POST) -->
   <form action="/login" method="post">
     <h2>Login</h2>
 
     <% if (error) { %>
+      <!-- Display error message if login failed -->
       <p style="color:red"><%= error %></p>
     <% } %>
 
+    <!-- Username input -->
     <label>Username:</label>
     <input type="text" name="username" required>
 
+    <!-- Password input -->
     <label>Password:</label>
     <input type="password" name="password" required>
 
+    <!-- Submit button -->
     <button type="submit">Login</button>
 
+    <!-- Link to registration page -->
     <a href="/register">Don't have an account? Register here</a>
   </form>
 </body>
