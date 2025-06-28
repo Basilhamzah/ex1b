@@ -14,21 +14,21 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-// Middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-app.use(fileUpload());
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+// Middleware setup
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded form data
+app.use(express.static('public')); // Serve static files from 'public' directory
+app.use(fileUpload()); // Enable file uploads
+app.set('view engine', 'ejs'); // Set EJS as the template engine
+app.set('views', path.join(__dirname, 'views')); // Set the views directory
 
-
+// Session configuration
 app.use(session({
   secret: 'my_secret_key',
   resave: false,
   saveUninitialized: true
 }));
 
-// יצירת תיקיית העלאות
+// Create the uploads directory if it does not exist
 const uploadDir = path.join(__dirname, 'uploads'); 
 app.use('/uploads', express.static(uploadDir));
 
@@ -36,13 +36,13 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// יצירת בסיס הנתונים
+// Create (or open) the SQLite database
 const db = new sqlite3.Database('./db/users.db', (err) => {
   if (err) console.error(err.message);
   console.log('Connected to the users database.');
 });
 
-
+// Create the users table if it does not exist
 db.run(`CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE,
@@ -54,33 +54,34 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
   profile_pic TEXT
 )`);
 
-// דף הבית
+// Home page route - only accessible if logged in
 app.get('/', (req, res) => {
   if (!req.session.user) return res.redirect('/login');
   res.render('home', { user: req.session.user });
 });
 
-// דף הרשמה
+// Registration page
 app.get('/register', (req, res) => {
   res.render('register', { error: null });
 });
 
-// דף התחברות
+// Login page
 app.get('/login', (req, res) => {
   res.render('login', { error: null });
 });
 
-// יציאה
+// Logout route - destroy the session
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/login');
 });
 
-// תהליך הרשמה
+// Handle registration form submission
 app.post('/register', async (req, res) => {
   const { username, password, firstname, lastname, email, birthdate } = req.body;
   let profile_pic = null;
 
+  // Save uploaded profile picture if provided
   if (req.files && req.files.profile_pic) {
     let file = req.files.profile_pic;
     const filename = Date.now() + path.extname(file.name);
@@ -89,6 +90,7 @@ app.post('/register', async (req, res) => {
     profile_pic = filename;
   }
 
+  // Hash the password before storing
   const hashedPassword = await bcrypt.hash(password, 10);
 
   db.run(`INSERT INTO users (username, password, firstname, lastname, email, birthdate, profile_pic) 
@@ -103,7 +105,7 @@ app.post('/register', async (req, res) => {
     });
 });
 
-// תהליך התחברות
+// Handle login form submission
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -112,17 +114,19 @@ app.post('/login', (req, res) => {
       return res.render('login', { error: 'Invalid username or password.' });
     }
 
+    // Compare provided password with hashed password
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
       return res.render('login', { error: 'Invalid username or password.' });
     }
 
+    // Save user session and redirect to home
     req.session.user = user;
     res.redirect('/');
   });
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
-
