@@ -1,49 +1,68 @@
-/**
+<!--
  * מגישים: אחמד שלאעטה 212811244, באסל חמזה 214048019  , נרמין עראידה 212845762
  * GitHub: ( https://github.com/Ahmadsh64/ex1b.git )
- */
-
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Register</title>
   <link rel="stylesheet" href="/css/style.css">
+  <!-- 
+    Registration Page Template
+    This page allows users to create a new account by providing:
+    - Username
+    - Password
+    - Personal information (First name, Last name, Email, Birth date)
+    - Optional profile picture upload
+    If registration fails (e.g., duplicate username), an error message is shown.
+  -->
 </head>
 <body>
   <div class="form-wrapper"> 
 
+    <!-- Registration form submission to /register endpoint -->
     <form action="/register" method="post" enctype="multipart/form-data">
       <h2>Register</h2>
 
       <% if (error) { %>
+        <!-- Display error message if registration failed -->
         <p style="color:red"><%= error %></p>
       <% } %>
 
+      <!-- Username input -->
       <label>Username:</label>
       <input type="text" name="username" required>
 
+      <!-- Password input -->
       <label>Password:</label>
       <input type="password" name="password" required>
 
+      <!-- First name input -->
       <label>First Name:</label>
       <input type="text" name="firstname" required>
 
+      <!-- Last name input -->
       <label>Last Name:</label>
       <input type="text" name="lastname" required>
 
+      <!-- Email input -->
       <label>Email:</label>
       <input type="email" name="email" required>
 
+      <!-- Birth date input -->
       <label>Birth Date:</label>
       <input type="date" name="birthdate" required>
 
+      <!-- Profile picture file input -->
       <label>Profile Picture:</label>
       <input type="file" name="profile_pic">
 
+      <!-- Submit button -->
       <button type="submit">Register</button>
     </form>
 
+    <!-- Link to login page -->
     <div class="link-below">
       <a href="/login">Already have an account? Login here</a>
     </div>
